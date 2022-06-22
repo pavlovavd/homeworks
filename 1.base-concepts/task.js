@@ -18,12 +18,28 @@ function solveEquation(a, b, c) {
 }
 
 
-
-
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  let totalAmount;
+  let refundAmount = amount - contribution;
+  let monthlyPercent = (percent / 12) / 100;
 
-  // код для задачи №2 писать здесь
+  let firstDate = new Date();
+  let finalDate = new Date(date);
+  let monthAmount = firstDate.getMonth() - finalDate.getMonth() + (12 * (firstDate.getFullYear() - finalDate.getFullYear()));
+  let monthlyPayment = refundAmount * (monthlyPercent + (monthlyPercent / (((1 + monthlyPercent) ** monthAmount) - 1)));
 
-  return totalAmount;
+  let totalAmount = (monthlyPayment * monthAmount).toFixed(2);
+  return Number(totalAmount);
+
+  if (Number.isNaN(percent)) {
+    return percent = `Параметр процентной ставки содержит неправильное значение ${percent}`
+  }
+
+  if (Number.isNaN(contribution)) {
+    return contribution = `Параметр суммы первоначального взноса содержит неправильное значение ${contribution}`
+  }
+
+  if (Number.isNaN(amount)) {
+    return amount = `Параметр суммы кредита содержит неправильное значение ${amount}`
+  }
+
 }
