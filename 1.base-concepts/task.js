@@ -19,27 +19,26 @@ function solveEquation(a, b, c) {
 
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
+  if (Number.isNaN(Number(percent)) || Number(percent) < 0) {
+    return percent = String(`Параметр "Процентная ставка" содержит неправильное значение "${percent}"`);
+  }
+
+  if (Number.isNaN(Number(contribution)) || Number(contribution) < 0) {
+    return contribution = String(`Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`);
+  }
+
+  if (Number.isNaN(Number(amount)) || Number(amount) < 0) {
+    return amount = String(`Параметр "Общая стоимость" содержит неправильное значение "${amount}"`);
+  }
+
   let refundAmount = amount - contribution;
   let monthlyPercent = (percent / 12) / 100;
-
   let firstDate = new Date();
   let finalDate = new Date(date);
   let monthAmount = firstDate.getMonth() - finalDate.getMonth() + (12 * (firstDate.getFullYear() - finalDate.getFullYear()));
-  let monthlyPayment = refundAmount * (monthlyPercent + (monthlyPercent / (((1 + monthlyPercent) ** monthAmount) - 1)));
+  let monthlyPayment = refundAmount * (monthlyPercent + (monthlyPercent / ((Math.pow((1 + monthlyPercent), monthAmount) - 1))));
 
   let totalAmount = (monthlyPayment * monthAmount).toFixed(2);
   return Number(totalAmount);
-
-  if (Number.isNaN(percent)) {
-    return percent = `Параметр процентной ставки содержит неправильное значение ${percent}`
-  }
-
-  if (Number.isNaN(contribution)) {
-    return contribution = `Параметр суммы первоначального взноса содержит неправильное значение ${contribution}`
-  }
-
-  if (Number.isNaN(amount)) {
-    return amount = `Параметр суммы кредита содержит неправильное значение ${amount}`
-  }
 
 }
