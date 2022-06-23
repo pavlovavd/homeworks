@@ -35,7 +35,7 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
   let monthlyPercent = (percent / 12) / 100;
   let firstDate = new Date();
   let finalDate = new Date(date);
-  let monthAmount = firstDate.getMonth() - finalDate.getMonth() + (12 * (firstDate.getFullYear() - finalDate.getFullYear()));
+  let monthAmount = finalDate.getMonth() - firstDate.getMonth() + (12 * (finalDate.getFullYear() - firstDate.getFullYear()));
   let monthlyPayment = refundAmount * (monthlyPercent + (monthlyPercent / ((Math.pow((1 + monthlyPercent), monthAmount) - 1))));
 
   let totalAmount = (monthlyPayment * monthAmount).toFixed(2);
